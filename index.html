@@ -1,138 +1,245 @@
 <!DOCTYPE html>
+<!-- ↑ 「これはHTMLファイルです」とブラウザに伝えるおまじない。必ず先頭に書く -->
+ 
 <html lang="ja">
+<!-- ↑ ページ全体を囲むタグ。lang="ja" は「日本語のページ」という意味 -->
+ 
 <head>
+  <!-- ========================================
+    head（ヘッド）セクション
+    ブラウザへの設定を書く場所。画面には表示されない。
+  ======================================== -->
+ 
   <meta charset="UTF-8">
+  <!-- ↑ 文字コードの設定。UTF-8にしないと日本語が文字化けする -->
+ 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ↑ スマホ対応に必須。「画面幅に合わせて表示してね」という指示 -->
+ 
   <title>Coffee & Leather Shop</title>
+  <!-- ↑ ブラウザのタブに表示されるページタイトル -->
+ 
   <style>
+    /* ========================================
+      style（スタイル）セクション
+      見た目（色・サイズ・レイアウト）を書く場所。
+      /* コメント */ で説明を書ける。
+    ======================================== */
+ 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    /* ↑ 全要素の初期化。余白や枠線の計算方法を統一するおまじない */
+ 
     body { font-family: sans-serif; background: #fdf6ec; color: #333; }
-
-    /* ヘッダー */
+    /* ↑ ページ全体の設定
+       font-family: sans-serif → ゴシック体フォント
+       background: #fdf6ec    → 背景色（薄いクリーム色）
+       color: #333            → 文字色（濃いグレー） */
+ 
+ 
+    /* ── ヘッダー（一番上のバー）── */
     header { background: #3e2a1e; color: white; padding: 20px 16px; text-align: center; }
+    /* ↑ background: #3e2a1e → 背景色（こげ茶色）
+       color: white          → 文字色（白）
+       padding: 20px 16px    → 内側の余白（上下20px、左右16px）
+       text-align: center    → 文字を中央揃え */
+ 
     header h1 { font-size: clamp(1.3em, 5vw, 1.8em); margin-bottom: 6px; }
+    /* ↑ ヘッダーの大見出し
+       clamp(最小, 画面幅に応じた値, 最大) → 画面サイズで文字が自動調整される */
+ 
     header p { font-size: clamp(0.8em, 3vw, 0.95em); opacity: 0.8; }
-
-    /* ヒーロー */
+    /* ↑ ヘッダーのサブテキスト。opacity: 0.8 で少し透明にして柔らかく見せる */
+ 
+ 
+    /* ── ヒーローエリア（キャッチコピーの帯）── */
     .hero { text-align: center; padding: 32px 16px; background: #fff8f0; border-bottom: 1px solid #eedcca; }
+    /* ↑ .hero はクラス名。HTMLで class="hero" をつけた要素に適用される
+       border-bottom → 下に薄い線を引く */
+ 
     .hero h2 { font-size: clamp(1em, 4vw, 1.3em); margin-bottom: 10px; }
     .hero p { color: #666; font-size: clamp(0.85em, 3vw, 0.95em); line-height: 1.6; }
-
-    /* セクションタイトル */
+    /* ↑ line-height: 1.6 → 行間を1.6倍にして読みやすくする */
+ 
+ 
+    /* ── セクションタイトル（「商品一覧」の文字）── */
     .section-title { text-align: center; padding: 28px 16px 8px; font-size: 1.05em; color: #3e2a1e; font-weight: bold; }
-
-    /* 商品グリッド：スマホは1列、タブレットは2列、PCは3列 */
+ 
+ 
+    /* ── 商品グリッド（商品カードを並べるエリア）──
+       スマホ：1列、タブレット：2列、PC：3列 に自動で切り替わる */
     .products {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-      padding: 16px;
-      max-width: 960px;
-      margin: 0 auto;
+      display: grid;              /* グリッドレイアウト（格子状に並べる） */
+      grid-template-columns: 1fr; /* 最初は1列 */
+      gap: 20px;                  /* カード同士の隙間 */
+      padding: 16px;              /* 外側の余白 */
+      max-width: 960px;           /* 最大幅を960pxに制限 */
+      margin: 0 auto;             /* 左右中央に配置 */
     }
+ 
+    /* タブレットサイズ（幅560px以上）のとき2列にする */
     @media (min-width: 560px) {
       .products { grid-template-columns: repeat(2, 1fr); }
     }
+ 
+    /* PCサイズ（幅860px以上）のとき3列にする */
     @media (min-width: 860px) {
       .products { grid-template-columns: repeat(3, 1fr); }
     }
-
-    /* カード */
+ 
+ 
+    /* ── 商品カード（各商品を囲む白いカード）── */
     .card { background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); overflow: hidden; }
+    /* ↑ border-radius: 12px → 角を丸くする
+       box-shadow            → うっすら影をつけて浮いて見せる
+       overflow: hidden      → 角丸からはみ出た画像を隠す */
+ 
     .card img { width: 100%; height: 200px; object-fit: cover; display: block; }
+    /* ↑ カード内の画像
+       width: 100%         → カード幅いっぱいに広げる
+       height: 200px       → 高さを200pxに固定
+       object-fit: cover   → 画像を切り取って枠にぴったり収める（ゆがまない） */
+ 
     .card-body { padding: 14px 16px 18px; }
+    /* ↑ カード内のテキストエリアの余白 */
+ 
     .card-body h2 { font-size: 0.98em; margin-bottom: 8px; line-height: 1.4; }
+    /* ↑ 商品名のスタイル */
+ 
     .card-body p { font-size: 0.86em; color: #666; line-height: 1.6; }
+    /* ↑ 商品説明文のスタイル */
+ 
     .price { font-size: 1.3em; font-weight: bold; color: #3e2a1e; margin: 12px 0; }
-
-    /* ボタン */
+    /* ↑ 価格表示。大きく・太く・こげ茶色で目立たせる */
+ 
+ 
+    /* ── 購入ボタン── */
     .btn {
-      display: block;
-      text-align: center;
-      background: #3e2a1e;
-      color: white;
-      padding: 13px;
-      border-radius: 8px;
-      text-decoration: none;
+      display: block;           /* ブロック要素にしてカード幅いっぱいに広げる */
+      text-align: center;       /* テキストを中央揃え */
+      background: #3e2a1e;      /* 背景色（こげ茶） */
+      color: white;             /* 文字色（白） */
+      padding: 13px;            /* 内側の余白 */
+      border-radius: 8px;       /* 角を丸くする */
+      text-decoration: none;    /* リンクの下線を消す */
       font-size: 0.95em;
-      /* タップしやすい最小高さ */
-      min-height: 48px;
+      min-height: 48px;         /* スマホでタップしやすいよう最小高さを確保 */
       line-height: 1.4;
     }
     .btn:hover { background: #5a3e2b; }
+    /* ↑ マウスを乗せたとき（hover）に背景色を少し明るくする */
+ 
     .btn:active { background: #5a3e2b; opacity: 0.85; }
-
-    /* お問い合わせ */
+    /* ↑ タップ・クリックした瞬間に少し透明にして「押した感」を出す */
+ 
+ 
+    /* ── お問い合わせエリア── */
     .contact { background: #fff8f0; padding: 36px 16px; text-align: center; border-top: 1px solid #eedcca; }
     .contact h2 { font-size: 1.05em; margin-bottom: 12px; }
     .contact p { font-size: 0.9em; color: #666; line-height: 1.8; }
     .contact a { color: #3e2a1e; font-weight: bold; }
-
-    /* フッター */
+    /* ↑ メールアドレスのリンクをこげ茶・太字にする */
+ 
+ 
+    /* ── フッター（一番下のバー）── */
     footer { text-align: center; padding: 20px 16px; background: #3e2a1e; color: #ccc; font-size: 0.82em; }
+ 
   </style>
 </head>
+ 
 <body>
-
-<header>
-  <h1>☕ Coffee & Leather Shop</h1>
-  <p>こだわりのコーヒーと革細工をお届けします</p>
-</header>
-
-<div class="hero">
-  <h2>ようこそ！手作りの温もりをお届けします</h2>
-  <p>コーヒー豆・ドリップパック・革細工を<br>販売しています</p>
-</div>
-
-<p class="section-title">— 商品一覧 —</p>
-
-<div class="products">
-
-  <!-- 商品1：コーヒー豆 -->
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400" alt="コーヒー豆">
-    <div class="card-body">
-      <h2>エチオピア コーヒー豆 200g</h2>
-      <p>フルーティーな香りと明るい酸味。毎朝の一杯を特別に。</p>
-      <div class="price">¥1,800</div>
-      <a class="btn" href="ここにBaseのURLを貼る" target="_blank">購入する</a>
-    </div>
+  <!-- ========================================
+    body（ボディ）セクション
+    実際に画面に表示される内容を書く場所。
+  ======================================== -->
+ 
+  <!-- ── ヘッダー：ページ上部のタイトルバー ── -->
+  <header>
+    <h1>☕ Coffee & Leather Shop</h1>
+    <p>こだわりのコーヒーと革細工をお届けします</p>
+  </header>
+ 
+  <!-- ── ヒーロー：お客様への最初のメッセージ ── -->
+  <div class="hero">
+    <h2>ようこそ！手作りの温もりをお届けします</h2>
+    <p>コーヒー豆・ドリップパック・革細工を<br>販売しています</p>
+    <!-- ↑ <br> は改行タグ。ここで強制的に改行される -->
   </div>
-
-  <!-- 商品2：ドリップパック -->
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400" alt="ドリップパック">
-    <div class="card-body">
-      <h2>ドリップパック 10個セット</h2>
-      <p>お湯を注ぐだけで本格コーヒー。ギフトにも最適。</p>
-      <div class="price">¥1,200</div>
-      <a class="btn" href="ここにBaseのURLを貼る" target="_blank">購入する</a>
+ 
+  <!-- ── セクションタイトル ── -->
+  <p class="section-title">— 商品一覧 —</p>
+ 
+  <!-- ── 商品一覧エリア ── -->
+  <div class="products">
+ 
+    <!-- 商品1：コーヒー豆
+         カードは <div class="card"> で囲む。
+         商品を増やしたいときはこのブロックをコピーして増やす -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400" alt="コーヒー豆">
+      <!-- ↑ src="画像のURL"  alt="画像が読めないときに表示される説明文" -->
+      <div class="card-body">
+        <h2>エチオピア コーヒー豆 200g</h2>
+        <p>フルーティーな香りと明るい酸味。毎朝の一杯を特別に。</p>
+        <div class="price">¥1,800</div>
+        <a class="btn" href="ここにBaseのURLを貼る" target="_blank">購入する</a>
+        <!-- ↑ href="..." にBaseのリンクPayのURLを貼り付ける
+             target="_blank" → 新しいタブで開く -->
+      </div>
     </div>
-  </div>
-
-  <!-- 商品3：革細工 -->
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400" alt="革財布">
-    <div class="card-body">
-      <h2>手縫い革財布</h2>
-      <p>一枚革から丁寧に手縫い。使うほどに味が出ます。</p>
-      <div class="price">¥12,000</div>
-      <a class="btn" href="ここにBaseのURLを貼る" target="_blank">購入する</a>
+ 
+    <!-- 商品2：ドリップパック -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400" alt="ドリップパック">
+      <div class="card-body">
+        <h2>ドリップパック 10個セット</h2>
+        <p>お湯を注ぐだけで本格コーヒー。ギフトにも最適。</p>
+        <div class="price">¥1,200</div>
+        <a class="btn" href="ここにBaseのURLを貼る" target="_blank">購入する</a>
+      </div>
     </div>
+ 
+    <!-- 商品3：革細工 -->
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400" alt="革財布">
+      <div class="card-body">
+        <h2>手縫い革財布</h2>
+        <p>一枚革から丁寧に手縫い。使うほどに味が出ます。</p>
+        <div class="price">¥12,000</div>
+        <a class="btn" href="ここにBaseのURLを貼る" target="_blank">購入する</a>
+      </div>
+    </div>
+ 
+    <!-- ▼ 商品を増やしたい場合はここにコピペする ▼
+ 
+    <div class="card">
+      <img src="画像のURL" alt="商品の説明">
+      <div class="card-body">
+        <h2>商品名</h2>
+        <p>商品の説明文</p>
+        <div class="price">¥〇〇〇</div>
+        <a class="btn" href="BaseのURL" target="_blank">購入する</a>
+      </div>
+    </div>
+ 
+    ▲ ここまでをコピーして商品を追加できる ▲ -->
+ 
+  </div><!-- /products ここまでが商品一覧エリア -->
+ 
+  <!-- ── お問い合わせエリア ── -->
+  <div class="contact">
+    <h2>お問い合わせ</h2>
+    <p>ご質問はメールでお気軽にどうぞ<br>
+    <a href="mailto:your@email.com">your@email.com</a>
+    <!-- ↑ href="mailto:メールアドレス" にすると
+         クリックしたときにメールアプリが開く -->
+    </p>
   </div>
-
-</div>
-
-<div class="contact">
-  <h2>お問い合わせ</h2>
-  <p>ご質問はメールでお気軽にどうぞ<br>
-  <a href="mailto:your@email.com">your@email.com</a></p>
-</div>
-
-<footer>
-  <p>© 2026 Coffee & Leather Shop</p>
-</footer>
-
+ 
+  <!-- ── フッター：ページ下部のコピーライト表示 ── -->
+  <footer>
+    <p>© 2026 Coffee & Leather Shop</p>
+    <!-- ↑ © はコピーライト記号。年と店名を自分のものに変えてください -->
+  </footer>
+ 
 </body>
-</html>
 </html>
