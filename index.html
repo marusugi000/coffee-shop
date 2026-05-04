@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coffee & Leather Shop</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: sans-serif; background: #fdf6ec; color: #333; }
+    header { background: #3e2a1e; color: white; padding: 24px 20px; text-align: center; }
+    header h1 { font-size: 1.8em; margin-bottom: 6px; }
+    header p { font-size: 0.95em; opacity: 0.8; }
+    .hero { text-align: center; padding: 40px 20px; background: #fff8f0; border-bottom: 1px solid #eedcca; }
+    .hero h2 { font-size: 1.3em; margin-bottom: 10px; }
+    .hero p { color: #666; font-size: 0.95em; }
+    .section-title { text-align: center; padding: 32px 20px 8px; font-size: 1.1em; color: #3e2a1e; font-weight: bold; }
+    .products { display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; padding: 20px; }
+    .card { background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); width: 280px; overflow: hidden; }
+    .card img { width: 100%; height: 200px; object-fit: cover; }
+    .card-body { padding: 16px; }
+    .card-body h2 { font-size: 1em; margin-bottom: 8px; }
+    .card-body p { font-size: 0.88em; color: #666; line-height: 1.6; }
+    .price { font-size: 1.3em; font-weight: bold; color: #3e2a1e; margin: 12px 0; }
+    .btn { display: block; text-align: center; background: #3e2a1e; color: white;
+           padding: 12px; border-radius: 8px; text-decoration: none; font-size: 0.95em; }
+    .btn:hover { background: #5a3e2b; }
+    .contact { background: #fff8f0; padding: 40px 20px; text-align: center; border-top: 1px solid #eedcca; }
+    .contact h2 { font-size: 1.1em; margin-bottom: 12px; }
+    .contact p { font-size: 0.9em; color: #666; }
+    .contact a { color: #3e2a1e; font-weight: bold; }
+    footer { text-align: center; padding: 20px; background: #3e2a1e; color: #ccc; font-size: 0.85em; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>☕ Coffee & Leather Shop</h1>
+  <p>こだわりのコーヒーと革細工をお届けします</p>
+</header>
+
+<div class="hero">
+  <h2>ようこそ！手作りの温もりをお届けします</h2>
+  <p>コーヒー豆・ドリップパック・革細工を販売しています</p>
+</div>
+
+<p class="section-title">— 商品一覧 —</p>
+
+<div class="products">
+
+  <!-- 商品1：コーヒー豆 -->
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400" alt="コーヒー豆">
+    <div class="card-body">
+      <h2>エチオピア コーヒー豆 200g</h2>
+      <p>フルーティーな香りと明るい酸味。毎朝の一杯を特別に。</p>
+      <div class="price">¥1,800</div>
+      <a class="btn" href="ここにBaseのURLを貼る" target="_blank">購入する</a>
+    </div>
+  </div>
+
+  <!-- 商品2：ドリップパック -->
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400" alt="ドリップパック">
+    <div class="card-body">
+      <h2>ドリップパック 10個セット</h2>
+      <p>お湯を注ぐだけで本格コーヒー。ギフトにも最適。</p>
+      <div class="price">¥1,200</div>
+      <a class="btn" href="ここにBaseのURLを貼る" target="_blank">購入する</a>
+    </div>
+  </div>
+
+  <!-- 商品3：革細工 -->
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400" alt="革財布">
+    <div class="card-body">
+      <h2>手縫い革財布</h2>
+      <p>一枚革から丁寧に手縫い。使うほどに味が出ます。</p>
+      <div class="price">¥12,000</div>
+      <a class="btn" href="ここにBaseのURLを貼る" target="_blank">購入する</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="contact">
+  <h2>お問い合わせ</h2>
+  <p>ご質問はメールでお気軽にどうぞ<br>
+  <a href="mailto:your@email.com">your@email.com</a></p>
+</div>
+
+<footer>
+  <p>© 2026 Coffee & Leather Shop</p>
+</footer>
+
+</body>
+</html>
