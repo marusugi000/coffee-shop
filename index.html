@@ -1,245 +1,750 @@
 <!DOCTYPE html>
-<!-- ↑ 「これはHTMLファイルです」とブラウザに伝えるおまじない。必ず先頭に書く -->
- 
 <html lang="ja">
-<!-- ↑ ページ全体を囲むタグ。lang="ja" は「日本語のページ」という意味 -->
- 
 <head>
-  <!-- ========================================
-    head（ヘッド）セクション
-    ブラウザへの設定を書く場所。画面には表示されない。
-  ======================================== -->
- 
   <meta charset="UTF-8">
-  <!-- ↑ 文字コードの設定。UTF-8にしないと日本語が文字化けする -->
- 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- ↑ スマホ対応に必須。「画面幅に合わせて表示してね」という指示 -->
- 
-  <title>Coffee & Leather Shop</title>
-  <!-- ↑ ブラウザのタブに表示されるページタイトル -->
- 
+  <title>SGMT LOCAL ROASTERY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* ========================================
-      style（スタイル）セクション
-      見た目（色・サイズ・レイアウト）を書く場所。
-      /* コメント */ で説明を書ける。
-    ======================================== */
- 
+    /* ── カラー変数（ここを変えると全体の色が変わる）── */
+    :root {
+      --brown:      #3e2a1e; /* メインカラー：こげ茶 */
+      --brown-mid:  #5a3e2b; /* ホバー時のこげ茶 */
+      --brown-light:#8b6348; /* アクセントの中茶 */
+      --cream:      #fdf6ec; /* 背景色：クリーム */
+      --cream-dark: #f5e9d8; /* 少し濃いクリーム */
+      --border:     #e8d5bc; /* 罫線の色 */
+      --text:       #2c1a0e; /* 本文テキスト */
+      --text-muted: #7a5c3e; /* 補助テキスト */
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    /* ↑ 全要素の初期化。余白や枠線の計算方法を統一するおまじない */
- 
-    body { font-family: sans-serif; background: #fdf6ec; color: #333; }
-    /* ↑ ページ全体の設定
-       font-family: sans-serif → ゴシック体フォント
-       background: #fdf6ec    → 背景色（薄いクリーム色）
-       color: #333            → 文字色（濃いグレー） */
- 
- 
-    /* ── ヘッダー（一番上のバー）── */
-    header { background: #3e2a1e; color: white; padding: 20px 16px; text-align: center; }
-    /* ↑ background: #3e2a1e → 背景色（こげ茶色）
-       color: white          → 文字色（白）
-       padding: 20px 16px    → 内側の余白（上下20px、左右16px）
-       text-align: center    → 文字を中央揃え */
- 
-    header h1 { font-size: clamp(1.3em, 5vw, 1.8em); margin-bottom: 6px; }
-    /* ↑ ヘッダーの大見出し
-       clamp(最小, 画面幅に応じた値, 最大) → 画面サイズで文字が自動調整される */
- 
-    header p { font-size: clamp(0.8em, 3vw, 0.95em); opacity: 0.8; }
-    /* ↑ ヘッダーのサブテキスト。opacity: 0.8 で少し透明にして柔らかく見せる */
- 
- 
-    /* ── ヒーローエリア（キャッチコピーの帯）── */
-    .hero { text-align: center; padding: 32px 16px; background: #fff8f0; border-bottom: 1px solid #eedcca; }
-    /* ↑ .hero はクラス名。HTMLで class="hero" をつけた要素に適用される
-       border-bottom → 下に薄い線を引く */
- 
-    .hero h2 { font-size: clamp(1em, 4vw, 1.3em); margin-bottom: 10px; }
-    .hero p { color: #666; font-size: clamp(0.85em, 3vw, 0.95em); line-height: 1.6; }
-    /* ↑ line-height: 1.6 → 行間を1.6倍にして読みやすくする */
- 
- 
-    /* ── セクションタイトル（「商品一覧」の文字）── */
-    .section-title { text-align: center; padding: 28px 16px 8px; font-size: 1.05em; color: #3e2a1e; font-weight: bold; }
- 
- 
-    /* ── 商品グリッド（商品カードを並べるエリア）──
-       スマホ：1列、タブレット：2列、PC：3列 に自動で切り替わる */
-    .products {
-      display: grid;              /* グリッドレイアウト（格子状に並べる） */
-      grid-template-columns: 1fr; /* 最初は1列 */
-      gap: 20px;                  /* カード同士の隙間 */
-      padding: 16px;              /* 外側の余白 */
-      max-width: 960px;           /* 最大幅を960pxに制限 */
-      margin: 0 auto;             /* 左右中央に配置 */
+
+    body {
+      font-family: 'Noto Serif JP', Georgia, serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.7;
     }
- 
-    /* タブレットサイズ（幅560px以上）のとき2列にする */
-    @media (min-width: 560px) {
-      .products { grid-template-columns: repeat(2, 1fr); }
+
+    /* ── アニメーション：ページ読み込み時にフェードイン ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
- 
-    /* PCサイズ（幅860px以上）のとき3列にする */
-    @media (min-width: 860px) {
-      .products { grid-template-columns: repeat(3, 1fr); }
+    .fade-up { animation: fadeUp 0.8s ease both; }
+    .delay-1 { animation-delay: 0.15s; }
+    .delay-2 { animation-delay: 0.3s; }
+    .delay-3 { animation-delay: 0.45s; }
+
+    /* ════════════════════════════
+       ナビゲーション
+    ════════════════════════════ */
+    nav {
+      position: sticky; /* スクロールしても上部に固定 */
+      top: 0;
+      z-index: 100;
+      background: var(--brown);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      height: 56px;
     }
- 
- 
-    /* ── 商品カード（各商品を囲む白いカード）── */
-    .card { background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); overflow: hidden; }
-    /* ↑ border-radius: 12px → 角を丸くする
-       box-shadow            → うっすら影をつけて浮いて見せる
-       overflow: hidden      → 角丸からはみ出た画像を隠す */
- 
-    .card img { width: 100%; height: 200px; object-fit: cover; display: block; }
-    /* ↑ カード内の画像
-       width: 100%         → カード幅いっぱいに広げる
-       height: 200px       → 高さを200pxに固定
-       object-fit: cover   → 画像を切り取って枠にぴったり収める（ゆがまない） */
- 
-    .card-body { padding: 14px 16px 18px; }
-    /* ↑ カード内のテキストエリアの余白 */
- 
-    .card-body h2 { font-size: 0.98em; margin-bottom: 8px; line-height: 1.4; }
-    /* ↑ 商品名のスタイル */
- 
-    .card-body p { font-size: 0.86em; color: #666; line-height: 1.6; }
-    /* ↑ 商品説明文のスタイル */
- 
-    .price { font-size: 1.3em; font-weight: bold; color: #3e2a1e; margin: 12px 0; }
-    /* ↑ 価格表示。大きく・太く・こげ茶色で目立たせる */
- 
- 
-    /* ── 購入ボタン── */
-    .btn {
-      display: block;           /* ブロック要素にしてカード幅いっぱいに広げる */
-      text-align: center;       /* テキストを中央揃え */
-      background: #3e2a1e;      /* 背景色（こげ茶） */
-      color: white;             /* 文字色（白） */
-      padding: 13px;            /* 内側の余白 */
-      border-radius: 8px;       /* 角を丸くする */
-      text-decoration: none;    /* リンクの下線を消す */
-      font-size: 0.95em;
-      min-height: 48px;         /* スマホでタップしやすいよう最小高さを確保 */
-      line-height: 1.4;
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1em;
+      color: var(--cream);
+      letter-spacing: 0.15em;
+      text-decoration: none;
     }
-    .btn:hover { background: #5a3e2b; }
-    /* ↑ マウスを乗せたとき（hover）に背景色を少し明るくする */
- 
-    .btn:active { background: #5a3e2b; opacity: 0.85; }
-    /* ↑ タップ・クリックした瞬間に少し透明にして「押した感」を出す */
- 
- 
-    /* ── お問い合わせエリア── */
-    .contact { background: #fff8f0; padding: 36px 16px; text-align: center; border-top: 1px solid #eedcca; }
-    .contact h2 { font-size: 1.05em; margin-bottom: 12px; }
-    .contact p { font-size: 0.9em; color: #666; line-height: 1.8; }
-    .contact a { color: #3e2a1e; font-weight: bold; }
-    /* ↑ メールアドレスのリンクをこげ茶・太字にする */
- 
- 
-    /* ── フッター（一番下のバー）── */
-    footer { text-align: center; padding: 20px 16px; background: #3e2a1e; color: #ccc; font-size: 0.82em; }
- 
+    .nav-links {
+      display: flex;
+      gap: 8px;
+    }
+    .nav-links a {
+      color: #d4b896;
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-size: 0.82em;
+      letter-spacing: 0.08em;
+      font-family: sans-serif;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { background: var(--brown-mid); color: white; }
+
+    /* ════════════════════════════
+       ヒーローセクション（大きなメインビジュアル）
+    ════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 88vh; /* 画面の88%の高さ */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--brown);
+    }
+
+    /* 背景の質感（コーヒーのような粒子感） */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 50%, rgba(90,62,43,0.6) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(62,42,30,0.8) 0%, transparent 40%);
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1400&q=80') center/cover no-repeat;
+      opacity: 0.18;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 40px 24px;
+    }
+    .hero-eyebrow {
+      /* eyebrow = 大見出しの上の小さなテキスト */
+      display: inline-block;
+      font-family: sans-serif;
+      font-size: 0.72em;
+      letter-spacing: 0.3em;
+      color: #d4b896;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8em, 10vw, 5.5em);
+      color: var(--cream);
+      line-height: 1.1;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      margin-bottom: 24px;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: #d4b896;
+    }
+    .hero-sub {
+      font-size: 0.9em;
+      color: rgba(253,246,236,0.7);
+      margin-bottom: 40px;
+      font-family: sans-serif;
+      letter-spacing: 0.05em;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--cream);
+      color: var(--brown);
+      padding: 14px 36px;
+      border-radius: 2px;
+      text-decoration: none;
+      font-family: sans-serif;
+      font-size: 0.85em;
+      letter-spacing: 0.12em;
+      font-weight: bold;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-primary:hover { background: var(--cream-dark); }
+    .btn-outline {
+      border: 1px solid rgba(253,246,236,0.4);
+      color: var(--cream);
+      padding: 14px 36px;
+      border-radius: 2px;
+      text-decoration: none;
+      font-family: sans-serif;
+      font-size: 0.85em;
+      letter-spacing: 0.12em;
+      transition: background 0.2s;
+    }
+    .btn-outline:hover { background: rgba(253,246,236,0.1); }
+
+    /* スクロール誘導の矢印 */
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(253,246,236,0.4);
+      font-family: sans-serif;
+      font-size: 0.72em;
+      letter-spacing: 0.2em;
+      text-align: center;
+      z-index: 1;
+    }
+    .scroll-hint::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: rgba(253,246,236,0.3);
+      margin: 10px auto 0;
+      animation: scrollLine 1.6s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%   { transform: scaleY(0); transform-origin: top; }
+      50%  { transform: scaleY(1); transform-origin: top; }
+      51%  { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ════════════════════════════
+       コンセプトバー（3つのキーワード）
+    ════════════════════════════ */
+    .concept-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid var(--border);
+    }
+    .concept-item {
+      padding: 32px 24px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .concept-item:last-child { border-right: none; }
+    .concept-icon {
+      font-size: 1.6em;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .concept-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05em;
+      color: var(--brown);
+      letter-spacing: 0.05em;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .concept-desc {
+      font-size: 0.78em;
+      color: var(--text-muted);
+      font-family: sans-serif;
+    }
+
+    /* ════════════════════════════
+       セクション共通
+    ════════════════════════════ */
+    .section { padding: 80px 24px; }
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .section-eyebrow {
+      font-family: sans-serif;
+      font-size: 0.72em;
+      letter-spacing: 0.25em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6em, 5vw, 2.4em);
+      font-weight: 400;
+      color: var(--brown);
+      letter-spacing: 0.03em;
+    }
+
+    /* ════════════════════════════
+       商品グリッド
+    ════════════════════════════ */
+    .products-section { background: white; }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2px; /* 細い区切り線のような隙間 */
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* 商品カード */
+    .card {
+      background: white;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(62,42,30,0.12); }
+
+    .card-img-wrap {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4/3; /* 画像の縦横比を固定 */
+    }
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .card:hover .card-img-wrap img { transform: scale(1.05); }
+
+    /* カテゴリバッジ（画像の上に重ねて表示） */
+    .card-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--brown);
+      color: var(--cream);
+      font-family: sans-serif;
+      font-size: 0.68em;
+      letter-spacing: 0.15em;
+      padding: 4px 10px;
+      text-transform: uppercase;
+    }
+
+    .card-body {
+      padding: 20px 20px 24px;
+      border-top: 1px solid var(--border);
+    }
+    .card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15em;
+      color: var(--brown);
+      margin-bottom: 6px;
+      letter-spacing: 0.02em;
+    }
+    .card-desc {
+      font-size: 0.82em;
+      color: var(--text-muted);
+      font-family: sans-serif;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .card-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3em;
+      color: var(--brown);
+      font-weight: 600;
+    }
+    .card-btn {
+      background: var(--brown);
+      color: white;
+      text-decoration: none;
+      font-family: sans-serif;
+      font-size: 0.78em;
+      letter-spacing: 0.12em;
+      padding: 10px 18px;
+      transition: background 0.2s;
+      white-space: nowrap;
+      min-height: 44px; /* スマホでタップしやすい最小高さ */
+      display: flex;
+      align-items: center;
+    }
+    .card-btn:hover { background: var(--brown-mid); }
+
+    /* ════════════════════════════
+       ストーリーセクション（横2分割レイアウト）
+    ════════════════════════════ */
+    .story-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 480px;
+    }
+    @media (max-width: 720px) { .story-section { grid-template-columns: 1fr; } }
+
+    .story-img {
+      background: url('https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?w=800&q=80') center/cover no-repeat;
+      min-height: 320px;
+    }
+    .story-text {
+      background: var(--brown);
+      color: var(--cream);
+      padding: 64px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .story-text .section-eyebrow { color: #d4b896; }
+    .story-text .section-title { color: var(--cream); text-align: left; margin-bottom: 24px; }
+    .story-text p {
+      font-size: 0.9em;
+      color: rgba(253,246,236,0.75);
+      line-height: 1.9;
+      margin-bottom: 32px;
+      font-family: sans-serif;
+    }
+    .story-link {
+      display: inline-block;
+      color: #d4b896;
+      text-decoration: none;
+      font-family: sans-serif;
+      font-size: 0.82em;
+      letter-spacing: 0.15em;
+      border-bottom: 1px solid rgba(212,184,150,0.4);
+      padding-bottom: 4px;
+      transition: border-color 0.2s;
+    }
+    .story-link:hover { border-color: #d4b896; }
+
+    /* ════════════════════════════
+       特徴リスト
+    ════════════════════════════ */
+    .features-section { background: var(--cream-dark); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 32px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .feature-item { text-align: center; }
+    .feature-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4em;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .feature-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05em;
+      color: var(--brown);
+      margin-bottom: 8px;
+    }
+    .feature-desc {
+      font-size: 0.82em;
+      color: var(--text-muted);
+      font-family: sans-serif;
+      line-height: 1.7;
+    }
+
+    /* ════════════════════════════
+       お問い合わせ・フッター
+    ════════════════════════════ */
+    .contact-section {
+      text-align: center;
+      padding: 80px 24px;
+      background: white;
+      border-top: 1px solid var(--border);
+    }
+    .contact-section .section-title { margin-bottom: 12px; }
+    .contact-section p {
+      font-size: 0.88em;
+      color: var(--text-muted);
+      font-family: sans-serif;
+      margin-bottom: 24px;
+    }
+    .contact-section a {
+      color: var(--brown);
+      font-weight: bold;
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+    }
+
+    footer {
+      background: var(--brown);
+      color: rgba(253,246,236,0.5);
+      text-align: center;
+      padding: 28px 24px;
+      font-family: sans-serif;
+      font-size: 0.78em;
+      letter-spacing: 0.1em;
+    }
+    footer a {
+      color: rgba(253,246,236,0.5);
+      text-decoration: none;
+      margin: 0 12px;
+    }
+    footer a:hover { color: var(--cream); }
+
+    /* ════════════════════════════
+       スマホ対応（幅480px以下）
+    ════════════════════════════ */
+    @media (max-width: 480px) {
+
+      /* ナビ：ロゴを小さく・メニューを縦並びに */
+      nav { flex-direction: column; height: auto; padding: 12px 16px; gap: 8px; }
+      .nav-logo { font-size: 0.88em; letter-spacing: 0.1em; }
+      .nav-links { gap: 4px; flex-wrap: wrap; justify-content: center; }
+      .nav-links a { font-size: 0.76em; padding: 5px 10px; }
+
+      /* ヒーロー：高さと余白を調整 */
+      .hero { min-height: 75vh; }
+      .hero-inner { padding: 32px 20px 80px; }
+      .hero-eyebrow { font-size: 0.65em; letter-spacing: 0.2em; margin-bottom: 16px; }
+      .hero-title { font-size: clamp(2em, 10vw, 3em); margin-bottom: 16px; line-height: 1.2; }
+      .hero-sub { font-size: 0.82em; margin-bottom: 28px; }
+
+      /* ボタンをスマホで縦並び・幅いっぱいに */
+      .hero-btns { flex-direction: column; align-items: center; gap: 10px; }
+      .btn-primary, .btn-outline {
+        width: 100%; max-width: 280px; text-align: center; padding: 14px 20px;
+      }
+
+      /* コンセプトバー：横並びアイコン付きリストに */
+      .concept-bar { grid-template-columns: 1fr; }
+      .concept-item {
+        border-right: none; border-bottom: 1px solid var(--border);
+        padding: 18px 16px; display: flex; align-items: center; gap: 14px; text-align: left;
+      }
+      .concept-item:last-child { border-bottom: none; }
+      .concept-icon { font-size: 1.4em; margin-bottom: 0; flex-shrink: 0; }
+
+      /* セクション余白を縮小 */
+      .section { padding: 48px 16px; }
+      .section-header { margin-bottom: 32px; }
+
+      /* 商品グリッド：1列表示 */
+      .products-grid { grid-template-columns: 1fr; gap: 16px; }
+      .card-img-wrap { aspect-ratio: 16/9; }
+      .card-body { padding: 16px; }
+      .card-footer { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .card-btn { width: 100%; text-align: center; justify-content: center; }
+
+      /* ストーリー：縦1列（画像→テキストの順）*/
+      .story-section { grid-template-columns: 1fr; }
+      .story-img { min-height: 220px; order: 0; }
+      .story-text { padding: 36px 20px; order: 1; }
+      .story-text .section-title { font-size: 1.6em; }
+      .story-text p { font-size: 0.85em; margin-bottom: 24px; }
+
+      /* こだわり：2列グリッドに */
+      .features-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .feature-num { font-size: 1.8em; }
+      .feature-desc { font-size: 0.78em; }
+
+      /* お問い合わせ */
+      .contact-section { padding: 48px 16px; }
+      .contact-section a { word-break: break-all; }
+
+      /* フッター */
+      footer { padding: 24px 16px; }
+      footer a { display: block; margin: 6px 0; }
+    }
+
+    /* タブレット対応（481px〜768px） */
+    @media (min-width: 481px) and (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-logo { font-size: 0.92em; }
+      .nav-links a { font-size: 0.78em; padding: 5px 10px; }
+      .hero { min-height: 80vh; }
+      .hero-title { font-size: clamp(2.4em, 8vw, 3.6em); }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .story-section { grid-template-columns: 1fr; }
+      .story-img { min-height: 280px; }
+      .story-text { padding: 48px 32px; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .section { padding: 60px 20px; }
+    }
   </style>
 </head>
- 
 <body>
-  <!-- ========================================
-    body（ボディ）セクション
-    実際に画面に表示される内容を書く場所。
-  ======================================== -->
- 
-  <!-- ── ヘッダー：ページ上部のタイトルバー ── -->
-  <header>
-    <h1>☕ Coffee & Leather Shop</h1>
-    <p>こだわりの自家焙煎コーヒーと革細工(予定)をお届けします</p>
-  </header>
- 
-  <!-- ── ヒーロー：お客様への最初のメッセージ ── -->
-  <div class="hero">
-    <h2>ようこそ！手作りの温もりをお届けします</h2>
-    <p>コーヒー豆・ドリップパック・革細工を<br>販売しています</p>
-    <!-- ↑ <br> は改行タグ。ここで強制的に改行される -->
+
+  <!-- ── ナビゲーション ── -->
+  <nav>
+    <a href="/" class="nav-logo">SGMT LOCAL ROASTERY</a>
+    <div class="nav-links">
+      <a href="/" class="active">トップ</a>
+      <a href="/about/">お店について</a>
+      <a href="/brew/">コーヒーの淹れ方</a>
+    </div>
+  </nav>
+
+  <!-- ── ヒーロー：最初に目に入る大きなビジュアル ── -->
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="hero-eyebrow fade-up">Specialty Coffee &amp; Leather Craft</span>
+      <h1 class="hero-title fade-up delay-1">
+        一杯に、<em>物語</em>を。<br>革に、<em>時間</em>を。
+      </h1>
+      <p class="hero-sub fade-up delay-2">
+        こだわりのコーヒー豆と、手縫いの革細工をお届けします
+      </p>
+      <div class="hero-btns fade-up delay-3">
+        <a href="#products" class="btn-primary">商品を見る</a>
+        <a href="/about/" class="btn-outline">お店について</a>
+      </div>
+    </div>
+    <div class="scroll-hint">SCROLL</div>
+  </section>
+
+  <!-- ── コンセプトバー：3つのキーワード ── -->
+  <div class="concept-bar">
+    <div class="concept-item">
+      <span class="concept-icon">🫘</span>
+      <span class="concept-label">Specialty Coffee</span>
+      <span class="concept-desc">産地にこだわった豆を丁寧に焙煎</span>
+    </div>
+    <div class="concept-item">
+      <span class="concept-icon">✋</span>
+      <span class="concept-label">Handmade Leather</span>
+      <span class="concept-desc">一枚革から手縫いで仕上げる革細工</span>
+    </div>
+    <div class="concept-item">
+      <span class="concept-icon">📦</span>
+      <span class="concept-label">Gift Ready</span>
+      <span class="concept-desc">大切な方へのギフトにも最適</span>
+    </div>
   </div>
- 
-  <!-- ── セクションタイトル ── -->
-  <p class="section-title">— 商品一覧 —</p>
- 
-  <!-- ── 商品一覧エリア ── -->
-  <div class="products">
- 
-    <!-- 商品1：コーヒー豆
-         カードは <div class="card"> で囲む。
-         商品を増やしたいときはこのブロックをコピーして増やす -->
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400" alt="コーヒー豆">
-      <!-- ↑ src="画像のURL"  alt="画像が読めないときに表示される説明文" -->
-      <div class="card-body">
-        <h2>ベトナム コーヒー豆 60g</h2>
-        <p>苦みと香りを。毎朝の一杯を特別に。</p>
-        <div class="price">¥1,000</div>
-        <a class="btn" href="ここにBaseのURLを貼る" target="_blank">購入する</a>
-        <!-- ↑ href="..." にBaseのリンクPayのURLを貼り付ける
-             target="_blank" → 新しいタブで開く -->
+
+  <!-- ── 商品一覧 ── -->
+  <section class="products-section section" id="products">
+    <div class="section-header">
+      <span class="section-eyebrow">Our Products</span>
+      <h2 class="section-title">商品一覧</h2>
+    </div>
+    <div class="products-grid">
+
+      <!-- 商品1：コーヒー豆 -->
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600" alt="コーヒー豆">
+          <span class="card-badge">Coffee</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">エチオピア コーヒー豆 200g</h3>
+          <p class="card-desc">フルーティーな香りと明るい酸味。毎朝の一杯を特別に。</p>
+          <div class="card-footer">
+            <span class="card-price">¥1,800</span>
+            <!-- ↓ BaseのリンクPayのURLに変えてください -->
+            <a class="card-btn" href="ここにBaseのURLを貼る" target="_blank">購入する</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 商品2：ドリップパック -->
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600" alt="ドリップパック">
+          <span class="card-badge">Coffee</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">ドリップパック 10個セット</h3>
+          <p class="card-desc">お湯を注ぐだけで本格コーヒー。ギフトにも最適。</p>
+          <div class="card-footer">
+            <span class="card-price">¥1,200</span>
+            <a class="card-btn" href="ここにBaseのURLを貼る" target="_blank">購入する</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 商品3：革財布 -->
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600" alt="革財布">
+          <span class="card-badge">Leather</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">手縫い革財布</h3>
+          <p class="card-desc">一枚革から丁寧に手縫い。使うほどに味が出ます。</p>
+          <div class="card-footer">
+            <span class="card-price">¥12,000</span>
+            <a class="card-btn" href="ここにBaseのURLを貼る" target="_blank">購入する</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ▼ 商品を増やすときはここにコピペ ▼
+      <div class="card">
+        <div class="card-img-wrap">
+          <img src="画像URL" alt="商品名">
+          <span class="card-badge">カテゴリ</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-name">商品名</h3>
+          <p class="card-desc">商品の説明</p>
+          <div class="card-footer">
+            <span class="card-price">¥〇〇〇</span>
+            <a class="card-btn" href="BaseのURL" target="_blank">購入する</a>
+          </div>
+        </div>
+      </div>
+      ▲ ここまでをコピー ▲ -->
+
+    </div>
+  </section>
+
+  <!-- ── ストーリーセクション（お店の想い） ── -->
+  <section class="story-section">
+    <div class="story-img"></div>
+    <!-- ↑ 背景画像を変えるには story-img の background-image を変更 -->
+    <div class="story-text">
+      <span class="section-eyebrow">Our Story</span>
+      <h2 class="section-title">コーヒーと革が<br>出会う場所</h2>
+      <p>
+        旅先で出会った一杯のコーヒーに魅せられ、
+        豆の産地や焙煎を学び始めました。
+        革細工は、コーヒーを楽しむ道具を
+        自分で作りたいという気持ちから。
+        どちらも「長く、大切に使えるもの」を
+        届けたいという思いで作っています。
+      </p>
+      <a href="/about/" class="story-link">お店についてもっと読む →</a>
+    </div>
+  </section>
+
+  <!-- ── 特徴 ── -->
+  <section class="features-section section">
+    <div class="section-header">
+      <span class="section-eyebrow">Why Choose Us</span>
+      <h2 class="section-title">私たちのこだわり</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-num">01</div>
+        <div class="feature-title">産地直送の豆</div>
+        <p class="feature-desc">エチオピア・コロンビアなど厳選農園からスペシャルティコーヒーを直接仕入れ</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">02</div>
+        <div class="feature-title">受注後焙煎</div>
+        <p class="feature-desc">ご注文をいただいてから焙煎。できるだけ新鮮な状態でお届けします</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">03</div>
+        <div class="feature-title">完全手縫いの革細工</div>
+        <p class="feature-desc">一枚の革から型紙を起こし、すべて手縫いで仕上げた一点もの</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">04</div>
+        <div class="feature-title">丁寧な梱包</div>
+        <p class="feature-desc">ギフトボックス対応。大切な方へのプレゼントにも安心してお使いください</p>
       </div>
     </div>
- 
-    <!-- 商品2：ドリップパック -->
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400" alt="ドリップパック">
-      <div class="card-body">
-        <h2>ドリップパック 10個セット</h2>
-        <p>お湯を注ぐだけで本格コーヒー。ギフトにも最適。</p>
-        <div class="price">¥1,000</div>
-        <a class="btn" href="ここにBaseのURLを貼る" target="_blank">購入する</a>
-      </div>
-    </div>
- 
-    <!-- 商品3：革細工 -->
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400" alt="革財布">
-      <div class="card-body">
-        <h2>手縫い革財布</h2>
-        <p>一枚革から丁寧に手縫い。使うほどに味が出ます。</p>
-        <div class="price">¥12,000</div>
-        <a class="btn" href="ここにBaseのURLを貼る" target="_blank">購入する</a>
-      </div>
-    </div>
- 
-    <!-- ▼ 商品を増やしたい場合はここにコピペする ▼
- 
-    <div class="card">
-      <img src="画像のURL" alt="商品の説明">
-      <div class="card-body">
-        <h2>商品名</h2>
-        <p>商品の説明文</p>
-        <div class="price">¥〇〇〇</div>
-        <a class="btn" href="BaseのURL" target="_blank">購入する</a>
-      </div>
-    </div>
- 
-    ▲ ここまでをコピーして商品を追加できる ▲ -->
- 
-  </div><!-- /products ここまでが商品一覧エリア -->
- 
-  <!-- ── お問い合わせエリア ── -->
-  <div class="contact">
-    <h2>お問い合わせ</h2>
-    <p>ご質問はメールでお気軽にどうぞ<br>
-    <a href="mailto:your@email.com">your@email.com</a>
-    <!-- ↑ href="mailto:メールアドレス" にすると
-         クリックしたときにメールアプリが開く -->
-    </p>
+  </section>
+
+  <!-- ── お問い合わせ ── -->
+  <div class="contact-section">
+    <span class="section-eyebrow">Contact</span>
+    <h2 class="section-title">お問い合わせ</h2>
+    <p>ご質問・ご相談はメールでお気軽にどうぞ<br>通常1〜2営業日以内にご返信いたします</p>
+    <!-- ↓ メールアドレスを自分のものに変えてください -->
+    <a href="mailto:marusugi000ddd@gmail.com">marusugi000ddd@gmail.com</a>
   </div>
- 
-  <!-- ── フッター：ページ下部のコピーライト表示 ── -->
+
+  <!-- ── フッター ── -->
   <footer>
-    <p>© 2026 Coffee & Leather Shop</p>
-    <!-- ↑ © はコピーライト記号。年と店名を自分のものに変えてください -->
+    <p>
+      <a href="/about/">お店について</a>
+      <a href="/brew/">コーヒーの淹れ方</a>
+      <a href="/faq/">よくある質問</a>
+    </p>
+    <p style="margin-top:12px;">© 2026 SGMT LOCAL ROASTERY</p>
   </footer>
- 
+
 </body>
 </html>
