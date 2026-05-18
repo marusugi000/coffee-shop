@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>コーヒーの淹れ方 | SGMT LOCAL ROASTERY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brown:      #3e2a1e;
+      --brown-mid:  #5a3e2b;
+      --brown-light:#8b6348;
+      --cream:      #fdf6ec;
+      --cream-dark: #f5e9d8;
+      --border:     #e8d5bc;
+      --text:       #2c1a0e;
+      --text-muted: #7a5c3e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Noto Serif JP', Georgia, serif; background: var(--cream); color: var(--text); line-height: 1.8; }
+
+    /* ナビゲーション */
+    nav { position: sticky; top: 0; z-index: 100; background: var(--brown); display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 56px; }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1em; color: var(--cream); letter-spacing: 0.15em; text-decoration: none; }
+    .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+    .nav-links a { color: #d4b896; text-decoration: none; padding: 5px 12px; border-radius: 4px; font-size: 0.78em; letter-spacing: 0.06em; font-family: sans-serif; transition: background 0.2s; }
+    .nav-links a:hover, .nav-links a.active { background: var(--brown-mid); color: white; }
+
+    /* ヘッダー */
+    .page-header { background: var(--brown); color: white; padding: 56px 20px 44px; text-align: center; }
+    .page-header-eyebrow { font-family: sans-serif; font-size: 0.7em; letter-spacing: 0.3em; color: #d4b896; text-transform: uppercase; display: block; margin-bottom: 14px; }
+    .page-header h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8em, 6vw, 2.8em); font-weight: 400; letter-spacing: 0.06em; margin-bottom: 10px; }
+    .page-header p { font-size: 0.88em; opacity: 0.65; font-family: sans-serif; }
+
+    /* メイン */
+    main { max-width: 780px; margin: 0 auto; padding: 56px 24px 80px; }
+
+    /* セクション */
+    .section { margin-bottom: 60px; }
+    .section-label { font-family: sans-serif; font-size: 0.7em; letter-spacing: 0.25em; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 12px; }
+    .section h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.4em, 4vw, 1.9em); font-weight: 400; color: var(--brown); margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); letter-spacing: 0.04em; }
+    .section p { font-size: 0.92em; color: #444; margin-bottom: 16px; font-family: sans-serif; line-height: 1.9; }
+
+    /* カード */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+    .info-card { background: white; border-radius: 10px; padding: 22px 20px; box-shadow: 0 1px 8px rgba(62,42,30,0.07); }
+    .info-card-icon { font-size: 1.5em; margin-bottom: 10px; display: block; }
+    .info-card-title { font-family: 'Cormorant Garamond', serif; font-size: 1.05em; color: var(--brown); margin-bottom: 6px; }
+    .info-card-desc { font-size: 0.83em; color: var(--text-muted); font-family: sans-serif; line-height: 1.7; }
+
+    /* ステップ */
+    .steps { display: flex; flex-direction: column; gap: 16px; }
+    .step { display: flex; gap: 16px; background: white; border-radius: 10px; padding: 18px 20px; box-shadow: 0 1px 8px rgba(62,42,30,0.07); }
+    .step-num { background: var(--brown); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85em; font-family: sans-serif; font-weight: bold; flex-shrink: 0; margin-top: 2px; }
+    .step h3 { font-size: 0.95em; font-weight: bold; color: var(--brown); font-family: sans-serif; margin-bottom: 6px; }
+    .step p { font-size: 0.86em; color: #555; line-height: 1.7; margin: 0; }
+    .step-tip { background: var(--cream-dark); border-left: 2px solid var(--brown-light); padding: 8px 12px; margin-top: 10px; font-size: 0.82em; color: var(--brown-light); border-radius: 0 6px 6px 0; }
+
+    /* テーブル */
+    .info-table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+    .info-table tr { border-bottom: 1px solid var(--border); }
+    .info-table th { text-align: left; padding: 13px 16px 13px 0; color: var(--brown); font-family: sans-serif; font-weight: bold; width: 30%; vertical-align: top; }
+    .info-table td { padding: 13px 0; color: #444; font-family: sans-serif; }
+
+    /* CTAボタン */
+    .cta { text-align: center; margin-top: 56px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    .cta-btn { display: inline-block; background: var(--brown); color: white; padding: 14px 36px; border-radius: 2px; text-decoration: none; font-family: sans-serif; font-size: 0.85em; letter-spacing: 0.1em; transition: background 0.2s; }
+    .cta-btn:hover { background: var(--brown-mid); }
+    .cta-btn.outline { background: transparent; color: var(--brown); border: 1px solid var(--border); }
+    .cta-btn.outline:hover { background: var(--cream-dark); }
+
+    /* フッター */
+    footer { background: var(--brown); color: rgba(253,246,236,0.5); text-align: center; padding: 28px 24px; font-family: sans-serif; font-size: 0.78em; letter-spacing: 0.1em; }
+    footer .footer-links { margin-bottom: 12px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
+    footer a { color: rgba(253,246,236,0.5); text-decoration: none; padding: 4px 10px; }
+    footer a:hover { color: var(--cream); }
+
+    /* スマホ対応 */
+    @media (max-width: 480px) {
+      nav { flex-direction: column; height: auto; padding: 10px 16px; gap: 6px; }
+      .nav-logo { font-size: 0.82em; }
+      .nav-links a { font-size: 0.72em; padding: 4px 8px; }
+      main { padding: 36px 16px 60px; }
+      .card-grid { grid-template-columns: 1fr; }
+      .cta { flex-direction: column; align-items: center; }
+      .cta-btn { width: 100%; max-width: 280px; text-align: center; }
+    }
+
+    .recipe-box { background: white; border-radius: 10px; padding: 20px 24px; box-shadow: 0 1px 8px rgba(62,42,30,0.07); margin-bottom: 20px; }
+    .recipe-box h3 { font-size: 0.95em; color: var(--brown); font-family: sans-serif; margin-bottom: 14px; font-weight: bold; }
+    .recipe-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--cream-dark); font-size: 0.88em; }
+    .recipe-row:last-child { border-bottom: none; }
+    .recipe-label { color: var(--text-muted); font-family: sans-serif; }
+    .recipe-value { font-weight: bold; color: var(--brown); font-family: sans-serif; }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
+    .tool-card { background: white; border-radius: 10px; padding: 14px 12px; text-align: center; box-shadow: 0 1px 8px rgba(62,42,30,0.07); }
+    .tool-icon { font-size: 1.6em; margin-bottom: 6px; display: block; }
+    .tool-name { font-size: 0.82em; font-family: sans-serif; font-weight: bold; color: var(--brown); margin-bottom: 2px; }
+    .tool-note { font-size: 0.74em; color: var(--text-muted); line-height: 1.4; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="nav-logo">SGMT LOCAL ROASTERY</a>
+    <div class="nav-links">
+      <a href="/">トップ</a>
+      <a href="/about/">お店について</a>
+      <a href="/brew/"class="active">コーヒーの淹れ方</a>
+      <a href="/leather/">革細工について</a>
+    </div>
+  </nav>
+  <div class="page-header">
+    <span class="page-header-eyebrow">Brew Guide</span>
+    <h1>コーヒーの淹れ方</h1>
+    <p>ハンドドリップで楽しむ、本格コーヒーの手引き</p>
+  </div>
+  <main>
+
+    <div class="section">
+      <span class="section-label">Equipment</span>
+      <h2>必要な道具</h2>
+      <p>まずは基本の道具を揃えましょう。ドリッパー・フィルター・ケトルがあれば始められます。</p>
+      <div class="tools-grid">
+        <div class="tool-card"><span class="tool-icon">🫙</span><div class="tool-name">ドリッパー</div><div class="tool-note">ハリオV60など円錐形がおすすめ</div></div>
+        <div class="tool-card"><span class="tool-icon">📄</span><div class="tool-name">ペーパーフィルター</div><div class="tool-note">ドリッパーに合ったサイズを</div></div>
+        <div class="tool-card"><span class="tool-icon">🫖</span><div class="tool-name">ドリップケトル</div><div class="tool-note">細口で注ぎやすいものが◎</div></div>
+        <div class="tool-card"><span class="tool-icon">⚖️</span><div class="tool-name">スケール</div><div class="tool-note">豆と湯量を正確に計る</div></div>
+        <div class="tool-card"><span class="tool-icon">🌡️</span><div class="tool-name">温度計</div><div class="tool-note">90〜93℃が目安</div></div>
+        <div class="tool-card"><span class="tool-icon">⚙️</span><div class="tool-name">グラインダー</div><div class="tool-note">直前に挽くと香り豊か</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <span class="section-label">Recipe</span>
+      <h2>基本レシピ（1杯分）</h2>
+      <div class="recipe-box">
+        <h3>標準レシピ</h3>
+        <div class="recipe-row"><span class="recipe-label">コーヒー豆</span><span class="recipe-value">15g</span></div>
+        <div class="recipe-row"><span class="recipe-label">お湯の量</span><span class="recipe-value">240ml</span></div>
+        <div class="recipe-row"><span class="recipe-label">お湯の温度</span><span class="recipe-value">90〜93℃</span></div>
+        <div class="recipe-row"><span class="recipe-label">挽き目</span><span class="recipe-value">中挽き</span></div>
+        <div class="recipe-row"><span class="recipe-label">所要時間</span><span class="recipe-value">約3分</span></div>
+      </div>
+      <p style="font-size:0.82em; color:var(--text-muted);">※ 豆の種類・焙煎度によって最適な量や温度は異なります。</p>
+    </div>
+
+    <div class="section">
+      <span class="section-label">How To Brew</span>
+      <h2>淹れ方ステップ</h2>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div><h3>豆を挽く</h3><p>コーヒー豆を15g計量し、中挽きに挽きます。挽きたての豆は香りが格段に違います。グラインダーがない場合は当店のドリップパックもご利用ください。</p><div class="step-tip">💡 挽いた豆はなるべく早く使いましょう。</div></div></div>
+        <div class="step"><div class="step-num">2</div><div><h3>フィルターをセットしてリンスする</h3><p>ドリッパーにペーパーフィルターをセットし、少量のお湯で濡らします（リンス）。紙の臭いを取り除く大切な工程です。リンスに使ったお湯は捨てます。</p></div></div>
+        <div class="step"><div class="step-num">3</div><div><h3>豆をセットして蒸らす（30秒）</h3><p>挽いた豆を入れ、中心から外側へ円を描くようにお湯を30ml注ぎます。豆がふっくら膨らんだら成功のサイン。そのまま30秒待ちます。</p><div class="step-tip">💡 膨らまない場合は豆が古い可能性があります。</div></div></div>
+        <div class="step"><div class="step-num">4</div><div><h3>お湯を注ぐ（1投目 100ml）</h3><p>蒸らしが終わったら、中心から外側へゆっくり円を描きながら約100ml注ぎます。豆の表面を崩さないようにゆっくり。</p></div></div>
+        <div class="step"><div class="step-num">5</div><div><h3>お湯を注ぐ（2〜3投目）</h3><p>湯面が下がってきたら、再度100mlずつ2回に分けて注ぎます。合計240mlになるよう調整。最後のお湯が落ちきる前にドリッパーを外すと雑味を防げます。</p></div></div>
+        <div class="step"><div class="step-num">6</div><div><h3>完成！カップに注いで味わう</h3><p>サーバーを軽く回して濃度を均一にしてから、温めておいたカップに注いで完成です。</p></div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <span class="section-label">Tips</span>
+      <h2>おいしく淹れるポイント</h2>
+      <div class="card-grid">
+        <div class="info-card"><span class="info-card-icon">💧</span><div class="info-card-title">お湯は90〜93℃</div><p class="info-card-desc">沸騰後1〜2分置くとちょうどよい温度に。高すぎると苦く、低すぎると酸味が強くなります。</p></div>
+        <div class="info-card"><span class="info-card-icon">⚖️</span><div class="info-card-title">比率を守る</div><p class="info-card-desc">豆15g：お湯240mlが基本。濃さはお湯の量を変えず豆の量で調整します。</p></div>
+        <div class="info-card"><span class="info-card-icon">🕐</span><div class="info-card-title">蒸らしを丁寧に</div><p class="info-card-desc">30秒しっかり待つことで豆の成分が均一に抽出されます。</p></div>
+        <div class="info-card"><span class="info-card-icon">🫘</span><div class="info-card-title">密閉容器で保存</div><p class="info-card-desc">酸素・湿気・光・熱が劣化の原因。開封後は2週間以内に飲み切りましょう。</p></div>
+      </div>
+    </div>
+
+    <div class="cta">
+      <a href="/" class="cta-btn">コーヒー豆を購入する</a>
+      <a href="/faq/" class="cta-btn outline">よくある質問</a>
+    </div>
+  </main>
+  <footer>
+    <div class="footer-links">
+      <a href="/about/">お店について</a>
+      <a href="/brew/">コーヒーの淹れ方</a>
+      <a href="/leather/">革細工について</a>
+      <a href="/faq/">よくある質問</a>
+    </div>
+    <p>© 2026 SGMT LOCAL ROASTERY</p>
+  </footer>
+</body>
+</html>

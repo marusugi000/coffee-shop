@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>革細工について | SGMT LOCAL ROASTERY</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brown:      #3e2a1e;
+      --brown-mid:  #5a3e2b;
+      --brown-light:#8b6348;
+      --cream:      #fdf6ec;
+      --cream-dark: #f5e9d8;
+      --border:     #e8d5bc;
+      --text:       #2c1a0e;
+      --text-muted: #7a5c3e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Noto Serif JP', Georgia, serif; background: var(--cream); color: var(--text); line-height: 1.8; }
+
+    /* ナビゲーション */
+    nav { position: sticky; top: 0; z-index: 100; background: var(--brown); display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 56px; }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1em; color: var(--cream); letter-spacing: 0.15em; text-decoration: none; }
+    .nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+    .nav-links a { color: #d4b896; text-decoration: none; padding: 5px 12px; border-radius: 4px; font-size: 0.78em; letter-spacing: 0.06em; font-family: sans-serif; transition: background 0.2s; }
+    .nav-links a:hover, .nav-links a.active { background: var(--brown-mid); color: white; }
+
+    /* ヘッダー */
+    .page-header { background: var(--brown); color: white; padding: 56px 20px 44px; text-align: center; }
+    .page-header-eyebrow { font-family: sans-serif; font-size: 0.7em; letter-spacing: 0.3em; color: #d4b896; text-transform: uppercase; display: block; margin-bottom: 14px; }
+    .page-header h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8em, 6vw, 2.8em); font-weight: 400; letter-spacing: 0.06em; margin-bottom: 10px; }
+    .page-header p { font-size: 0.88em; opacity: 0.65; font-family: sans-serif; }
+
+    /* メイン */
+    main { max-width: 780px; margin: 0 auto; padding: 56px 24px 80px; }
+
+    /* セクション */
+    .section { margin-bottom: 60px; }
+    .section-label { font-family: sans-serif; font-size: 0.7em; letter-spacing: 0.25em; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 12px; }
+    .section h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.4em, 4vw, 1.9em); font-weight: 400; color: var(--brown); margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); letter-spacing: 0.04em; }
+    .section p { font-size: 0.92em; color: #444; margin-bottom: 16px; font-family: sans-serif; line-height: 1.9; }
+
+    /* カード */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+    .info-card { background: white; border-radius: 10px; padding: 22px 20px; box-shadow: 0 1px 8px rgba(62,42,30,0.07); }
+    .info-card-icon { font-size: 1.5em; margin-bottom: 10px; display: block; }
+    .info-card-title { font-family: 'Cormorant Garamond', serif; font-size: 1.05em; color: var(--brown); margin-bottom: 6px; }
+    .info-card-desc { font-size: 0.83em; color: var(--text-muted); font-family: sans-serif; line-height: 1.7; }
+
+    /* ステップ */
+    .steps { display: flex; flex-direction: column; gap: 16px; }
+    .step { display: flex; gap: 16px; background: white; border-radius: 10px; padding: 18px 20px; box-shadow: 0 1px 8px rgba(62,42,30,0.07); }
+    .step-num { background: var(--brown); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85em; font-family: sans-serif; font-weight: bold; flex-shrink: 0; margin-top: 2px; }
+    .step h3 { font-size: 0.95em; font-weight: bold; color: var(--brown); font-family: sans-serif; margin-bottom: 6px; }
+    .step p { font-size: 0.86em; color: #555; line-height: 1.7; margin: 0; }
+    .step-tip { background: var(--cream-dark); border-left: 2px solid var(--brown-light); padding: 8px 12px; margin-top: 10px; font-size: 0.82em; color: var(--brown-light); border-radius: 0 6px 6px 0; }
+
+    /* テーブル */
+    .info-table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+    .info-table tr { border-bottom: 1px solid var(--border); }
+    .info-table th { text-align: left; padding: 13px 16px 13px 0; color: var(--brown); font-family: sans-serif; font-weight: bold; width: 30%; vertical-align: top; }
+    .info-table td { padding: 13px 0; color: #444; font-family: sans-serif; }
+
+    /* CTAボタン */
+    .cta { text-align: center; margin-top: 56px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    .cta-btn { display: inline-block; background: var(--brown); color: white; padding: 14px 36px; border-radius: 2px; text-decoration: none; font-family: sans-serif; font-size: 0.85em; letter-spacing: 0.1em; transition: background 0.2s; }
+    .cta-btn:hover { background: var(--brown-mid); }
+    .cta-btn.outline { background: transparent; color: var(--brown); border: 1px solid var(--border); }
+    .cta-btn.outline:hover { background: var(--cream-dark); }
+
+    /* フッター */
+    footer { background: var(--brown); color: rgba(253,246,236,0.5); text-align: center; padding: 28px 24px; font-family: sans-serif; font-size: 0.78em; letter-spacing: 0.1em; }
+    footer .footer-links { margin-bottom: 12px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
+    footer a { color: rgba(253,246,236,0.5); text-decoration: none; padding: 4px 10px; }
+    footer a:hover { color: var(--cream); }
+
+    /* スマホ対応 */
+    @media (max-width: 480px) {
+      nav { flex-direction: column; height: auto; padding: 10px 16px; gap: 6px; }
+      .nav-logo { font-size: 0.82em; }
+      .nav-links a { font-size: 0.72em; padding: 4px 8px; }
+      main { padding: 36px 16px 60px; }
+      .card-grid { grid-template-columns: 1fr; }
+      .cta { flex-direction: column; align-items: center; }
+      .cta-btn { width: 100%; max-width: 280px; text-align: center; }
+    }
+
+    /* 革細工ページ専用スタイル */
+    .hero-img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+      border-radius: 10px;
+      margin-bottom: 40px;
+    }
+    .process-grid { display: flex; flex-direction: column; gap: 16px; }
+    .process-item {
+      display: flex; gap: 20px; align-items: flex-start;
+      background: white; border-radius: 10px; padding: 20px;
+      box-shadow: 0 1px 8px rgba(62,42,30,0.07);
+    }
+    .process-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2em; color: var(--border);
+      line-height: 1; flex-shrink: 0; width: 40px;
+    }
+    .process-title { font-family: sans-serif; font-size: 0.95em; font-weight: bold; color: var(--brown); margin-bottom: 6px; }
+    .process-desc { font-size: 0.86em; color: #555; font-family: sans-serif; line-height: 1.7; margin: 0; }
+    .leather-types { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+    .leather-card {
+      background: white; border-radius: 10px; overflow: hidden;
+      box-shadow: 0 1px 8px rgba(62,42,30,0.07);
+    }
+    .leather-card-img {
+      width: 100%; height: 140px; object-fit: cover; display: block;
+    }
+    .leather-card-body { padding: 14px 16px 18px; }
+    .leather-card-name { font-family: 'Cormorant Garamond', serif; font-size: 1.05em; color: var(--brown); margin-bottom: 6px; }
+    .leather-card-desc { font-size: 0.82em; color: var(--text-muted); font-family: sans-serif; line-height: 1.6; margin-bottom: 12px; }
+    .leather-card-price { font-family: 'Cormorant Garamond', serif; font-size: 1.15em; color: var(--brown); font-weight: 600; margin-bottom: 10px; }
+    .leather-card-btn {
+      display: block; text-align: center; background: var(--brown); color: white;
+      padding: 10px; border-radius: 4px; text-decoration: none;
+      font-family: sans-serif; font-size: 0.8em; letter-spacing: 0.08em;
+      transition: background 0.2s;
+    }
+    .leather-card-btn:hover { background: var(--brown-mid); }
+    .care-list { display: flex; flex-direction: column; gap: 12px; }
+    .care-item {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 14px 0; border-bottom: 1px solid var(--border);
+    }
+    .care-item:last-child { border-bottom: none; }
+    .care-icon { font-size: 1.3em; flex-shrink: 0; margin-top: 2px; }
+    .care-title { font-family: sans-serif; font-size: 0.9em; font-weight: bold; color: var(--brown); margin-bottom: 4px; }
+    .care-desc { font-size: 0.84em; color: #555; font-family: sans-serif; line-height: 1.7; margin: 0; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="nav-logo">SGMT LOCAL ROASTERY</a>
+    <div class="nav-links">
+      <a href="/">トップ</a>
+      <a href="/about/">お店について</a>
+      <a href="/brew/">コーヒーの淹れ方</a>
+      <a href="/leather/"class="active">革細工について</a>
+    </div>
+  </nav>
+  <div class="page-header">
+    <span class="page-header-eyebrow">Leather Craft</span>
+    <h1>革細工について</h1>
+    <p>手縫いで仕上げる、一点もののレザーアイテム</p>
+  </div>
+  <main>
+
+    <!-- メインビジュアル -->
+    <img class="hero-img"
+      src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=1200&q=80"
+      alt="手縫いの革細工">
+    <!-- ↑ 自分の作品写真に変えるには src="./images/leather-main.jpg" に変更 -->
+
+    <div class="section">
+      <span class="section-label">About</span>
+      <h2>革細工へのこだわり</h2>
+      <p>すべての作品は、一枚の革から型紙を起こし、手縫いで仕上げています。ミシンは使いません。菱目打ちと蝋引き糸を使った手縫いは、切れても解けにくく、長く使い続けられる強さがあります。</p>
+      <p>使用する革は、イタリアやアメリカから仕入れたタンニンなめし革が中心です。使い込むほどに色が深まり、持ち主の手に馴染んでいく経年変化（エイジング）が最大の魅力です。</p>
+      <div class="card-grid">
+        <div class="info-card"><span class="info-card-icon">🧵</span><div class="info-card-title">すべて手縫い</div><p class="info-card-desc">ミシンを使わず、一針一針手縫いで仕上げます。丈夫で解けにくいのが特徴。</p></div>
+        <div class="info-card"><span class="info-card-icon">🐄</span><div class="info-card-title">タンニンなめし革</div><p class="info-card-desc">植物由来の成分でなめした革。使うほど色が深まるエイジングが楽しめます。</p></div>
+        <div class="info-card"><span class="info-card-icon">✂️</span><div class="info-card-title">型紙から手作り</div><p class="info-card-desc">一点ずつ型紙を起こし、革を裁断。同じ型でも表情が異なる一点ものです。</p></div>
+        <div class="info-card"><span class="info-card-icon">🎁</span><div class="info-card-title">ギフトボックス付き</div><p class="info-card-desc">大切な方へのプレゼントにも。メッセージカードの同封も無料で承ります。</p></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <span class="section-label">Process</span>
+      <h2>制作の流れ</h2>
+      <div class="process-grid">
+        <div class="process-item">
+          <div class="process-num">01</div>
+          <div><div class="process-title">革の選定・裁断</div><p class="process-desc">作品ごとに最適な革を選び、型紙を当てて裁断します。革の傷や模様の位置も考慮しながら丁寧に。</p></div>
+        </div>
+        <div class="process-item">
+          <div class="process-num">02</div>
+          <div><div class="process-title">コバ（断面）の処理</div><p class="process-desc">革の断面をやすりで整え、トコノールで磨きます。コバの仕上がりが作品の質を左右します。</p></div>
+        </div>
+        <div class="process-item">
+          <div class="process-num">03</div>
+          <div><div class="process-title">菱目打ちで縫い穴を開ける</div><p class="process-desc">菱目打ちと木槌を使い、等間隔に縫い穴を開けます。ここで均一さが決まります。</p></div>
+        </div>
+        <div class="process-item">
+          <div class="process-num">04</div>
+          <div><div class="process-title">手縫い仕上げ</div><p class="process-desc">蝋引き糸を使って、平縫い（サドルステッチ）で仕上げます。切れても解けにくい縫い方です。</p></div>
+        </div>
+        <div class="process-item">
+          <div class="process-num">05</div>
+          <div><div class="process-title">仕上げ・磨き</div><p class="process-desc">全体のバランスを確認しながら最終仕上げ。革用クリームで表面を整え、完成です。</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <span class="section-label">Products</span>
+      <h2>取り扱いアイテム</h2>
+      <div class="leather-types">
+        <div class="leather-card">
+          <img class="leather-card-img" src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400" alt="革財布">
+          <!-- ↑ 自分の作品写真に変えてください -->
+          <div class="leather-card-body">
+            <div class="leather-card-name">手縫い革財布</div>
+            <p class="leather-card-desc">一枚革から丁寧に手縫い。小銭入れ・カード入れ付き。</p>
+            <div class="leather-card-price">¥12,000</div>
+            <a class="leather-card-btn" href="ここにBaseのURLを貼る" target="_blank">購入する</a>
+            <!-- ↑ BaseのリンクPayのURLに変えてください -->
+          </div>
+        </div>
+        <div class="leather-card">
+          <img class="leather-card-img" src="https://images.unsplash.com/photo-1473188588951-666fce8e7c68?w=400" alt="キーケース">
+          <div class="leather-card-body">
+            <div class="leather-card-name">キーケース</div>
+            <p class="leather-card-desc">薄型でポケットに収まるシンプルなデザイン。</p>
+            <div class="leather-card-price">¥4,500</div>
+            <a class="leather-card-btn" href="ここにBaseのURLを貼る" target="_blank">購入する</a>
+          </div>
+        </div>
+        <div class="leather-card">
+          <img class="leather-card-img" src="https://images.unsplash.com/photo-1517941823-815bea90d291?w=400" alt="コースター">
+          <div class="leather-card-body">
+            <div class="leather-card-name">レザーコースター</div>
+            <p class="leather-card-desc">コーヒーカップに合わせたコースター。ギフトにも。</p>
+            <div class="leather-card-price">¥2,200</div>
+            <a class="leather-card-btn" href="ここにBaseのURLを貼る" target="_blank">購入する</a>
+          </div>
+        </div>
+      </div>
+      <!-- ▼ 商品を増やすときはこのブロックをコピー ▼
+      <div class="leather-card">
+        <img class="leather-card-img" src="画像URL" alt="商品名">
+        <div class="leather-card-body">
+          <div class="leather-card-name">商品名</div>
+          <p class="leather-card-desc">説明文</p>
+          <div class="leather-card-price">¥〇〇〇</div>
+          <a class="leather-card-btn" href="BaseのURL" target="_blank">購入する</a>
+        </div>
+      </div>
+      ▲ ここまでをコピー ▲ -->
+    </div>
+
+    <div class="section">
+      <span class="section-label">Care Guide</span>
+      <h2>革製品のお手入れ方法</h2>
+      <div class="care-list">
+        <div class="care-item">
+          <span class="care-icon">🧴</span>
+          <div><div class="care-title">日常のお手入れ</div><p class="care-desc">乾いた柔らかい布で軽く拭くだけでOKです。汚れが気になる場合は、革用クリーナーを少量使ってください。</p></div>
+        </div>
+        <div class="care-item">
+          <span class="care-icon">✨</span>
+          <div><div class="care-title">月1回のケア</div><p class="care-desc">レザークリームやミンクオイルを薄く塗り込んで乾拭きすると、しなやかさが保たれ長持ちします。</p></div>
+        </div>
+        <div class="care-item">
+          <span class="care-icon">💧</span>
+          <div><div class="care-title">水に濡れたとき</div><p class="care-desc">乾いた布で水分をすぐに拭き取り、風通しの良い場所で陰干ししてください。ドライヤーは革が硬くなるので使わないでください。</p></div>
+        </div>
+        <div class="care-item">
+          <span class="care-icon">☀️</span>
+          <div><div class="care-title">保管場所</div><p class="care-desc">直射日光・高温多湿を避けて保管してください。使わないときは布袋や箱に入れると形が保たれます。</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta">
+      <a href="/" class="cta-btn">商品を購入する</a>
+      <a href="/about/" class="cta-btn outline">お店について</a>
+    </div>
+  </main>
+  <footer>
+    <div class="footer-links">
+      <a href="/about/">お店について</a>
+      <a href="/brew/">コーヒーの淹れ方</a>
+      <a href="/leather/">革細工について</a>
+      <a href="/faq/">よくある質問</a>
+    </div>
+    <p>© 2026 SGMT LOCAL ROASTERY</p>
+  </footer>
+</body>
+</html>
